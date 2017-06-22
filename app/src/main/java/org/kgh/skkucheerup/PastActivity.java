@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -36,8 +37,7 @@ public class PastActivity extends AppCompatActivity {
     private DatabaseReference InsaDatabase3;
     private DatabaseReference ZagwaDatabase3;
     private boolean allSelOn3=false;
-    static ArrayList<SingerItem> pastInsaItems=new ArrayList<SingerItem>();
-    static ArrayList<SingerItem> pastZagwaItems=new ArrayList<SingerItem>();
+    static ArrayList<SingerItem> toBook2=new ArrayList<SingerItem>();
 
     int b=0;
     ListView listView3;
@@ -69,8 +69,8 @@ public class PastActivity extends AppCompatActivity {
         listView23=(ListView) findViewById(R.id.listView23);
         listView3=(ListView) findViewById(R.id.listView3);
 
-        adapter3=new SingerAdapter3(pastZagwaItems);
-        adapter23=new SingerAdapter3(pastInsaItems);
+        adapter3=new SingerAdapter3();
+        adapter23=new SingerAdapter3();
 
         FirebaseDatabase database3 = FirebaseDatabase.getInstance();
         InsaDatabase3 =database3.getReference().child("past").child("insa");
@@ -146,6 +146,11 @@ public class PastActivity extends AppCompatActivity {
         Intent intent=new Intent(getApplicationContext(),Main1_1Activity.class);
         startActivity(intent);
 
+    }
+
+    public void onFavoriteClicked(View v){
+        Intent intent=new Intent(getApplicationContext(),BookmarkActivity.class);
+        startActivity(intent);
     }
 
     public void onSearchButton(View v){
@@ -261,10 +266,7 @@ public class PastActivity extends AppCompatActivity {
         }
     }
     class SingerAdapter3 extends BaseAdapter {
-        ArrayList<SingerItem> items;
-        SingerAdapter3(ArrayList<SingerItem> list){
-            items=list;
-        }
+        ArrayList<SingerItem> items=new ArrayList<SingerItem>();
         @Override
         public int getCount(){
             return items.size();
@@ -287,6 +289,22 @@ public class PastActivity extends AppCompatActivity {
             SingerItem item=items.get(position);
             view.setName(item.title);
             view.setDate(item.getDate());
+
+            CheckBox button1=(CheckBox) view.findViewById(R.id.zle);
+            button1.setTag(position);
+
+            button1.setOnClickListener(new Button.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        int a=(Integer)v.getTag();
+                        toBook2.add(items.get(a));
+                        Toast.makeText(getApplicationContext(),"즐겨찾기에 추가되었습니다.",Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
             return view;
         }
     }

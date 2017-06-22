@@ -47,6 +47,7 @@
             android:id="@+id/buttonFav2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onFavoriteClicked"
             android:text="즐겨찾기 목록" />
 
         <Button

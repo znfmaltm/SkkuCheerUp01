@@ -1,7 +1,9 @@
 package org.kgh.skkucheerup;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,16 +46,13 @@ public class Main1_1Activity extends AppCompatActivity {
     private DatabaseReference InsaDatabase;
     private DatabaseReference ZagwaDatabase;
     private boolean allSelOn=false;
-    static ArrayList<SingerItem> curInsaItems=new ArrayList<SingerItem>();
-    static ArrayList<SingerItem> curZagwaItems=new ArrayList<SingerItem>();
-    static ArrayList<Integer> curInsaArr=new ArrayList<Integer>();
-    static ArrayList<Integer> curZagwaArr=new ArrayList<Integer>();
+    static ArrayList<SingerItem> toBook=new ArrayList<SingerItem>();
 
     int b=0;
     ListView listView;
     ListView listView2;
-    static public SingerAdapter adapter;
-    static public SingerAdapter adapter2;
+    public SingerAdapter adapter;
+    public SingerAdapter adapter2;
     LinearLayout page;
     ImageButton menuBtn;
     LinearLayout container;
@@ -77,12 +76,9 @@ public class Main1_1Activity extends AppCompatActivity {
         page=(LinearLayout) findViewById(R.id.page1);
         listView2=(ListView) findViewById(R.id.listView2);
         listView=(ListView) findViewById(R.id.listView);
-        try {
-            adapter = new SingerAdapter(curZagwaItems,1);
-            adapter2 = new SingerAdapter(curInsaItems,0);
-        }catch(Exception e){
-            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
-        }
+
+        adapter = new SingerAdapter();
+        adapter2 = new SingerAdapter();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         InsaDatabase =database.getReference().child("insa");
@@ -94,7 +90,6 @@ public class Main1_1Activity extends AppCompatActivity {
                 for(DataSnapshot child: dataSnapshot.getChildren()){
                         SingerItem insa=child.getValue(SingerItem.class);
                         adapter2.addItem(new SingerItem(insa.date,insa.companyName,insa.campusContent,insa.content,insa.title));
-                    curInsaArr.add(0);
                     adapter2.notifyDataSetChanged();
                 }
             }
@@ -110,7 +105,6 @@ public class Main1_1Activity extends AppCompatActivity {
                 for(DataSnapshot child: dataSnapshot.getChildren()){
                     SingerItem zagwa=child.getValue(SingerItem.class);
                     adapter.addItem(new SingerItem(zagwa.date,zagwa.companyName,zagwa.campusContent,zagwa.content,zagwa.title));
-                    curZagwaArr.add(0);
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -121,6 +115,7 @@ public class Main1_1Activity extends AppCompatActivity {
         };
         ZagwaDatabase.addValueEventListener(velZagwa);
         InsaDatabase.addValueEventListener(vel);
+
 
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -153,6 +148,27 @@ public class Main1_1Activity extends AppCompatActivity {
         listView.setAdapter(adapter);
         listView2.setAdapter(adapter2);
     }
+
+    /*@Override
+    protected void onPause(){
+        super.onPause();
+        saveState();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        restoreState();
+    }
+
+    protected void restoreState(){
+        SharedPreferences pre=getSharedPreferences("pre", Activity.MODE_PRIVATE);
+    }
+
+    protected void saveState(){
+        SharedPreferences pre=getSharedPreferences("pre", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pre.edit();
+        editor.commit();
+    }*/
 
     public void onFavoriteClicked(View v){
         Intent intent=new Intent(getApplicationContext(),BookmarkActivity.class);
@@ -280,13 +296,8 @@ public class Main1_1Activity extends AppCompatActivity {
         }
     }
     class SingerAdapter extends BaseAdapter{
-        ArrayList<SingerItem> items;
-        int campus;
+        ArrayList<SingerItem> items = new ArrayList<SingerItem>();
 
-        SingerAdapter(ArrayList<SingerItem> list, int cam){
-            items=list;
-            campus=cam;
-        }
         @Override
         public int getCount(){
             return items.size();
@@ -310,17 +321,21 @@ public class Main1_1Activity extends AppCompatActivity {
             SingerItem item = items.get(position);
             view.setName(item.title);
             view.setDate(item.getDate());
-            CheckBox button1 = (CheckBox) view.findViewById(R.id.zle);
 
-
-            button1.setTag(position + "");
+            CheckBox button1=(CheckBox) view.findViewById(R.id.zle);
+            button1.setTag(position);
 
             button1.setOnClickListener(new Button.OnClickListener() {
-                    public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(),(String)v.getTag(), Toast.LENGTH_SHORT).show();
+                public void onClick(View v) {
+                    try {
+                        int a=(Integer)v.getTag();
+                        Toast.makeText(getApplicationContext(),"즐겨찾기에 추가되었습니다.",Toast.LENGTH_SHORT).show();
+                        toBook.add(items.get(a));
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                     }
-                });
-
+                }
+            });
             return view;
         }
 

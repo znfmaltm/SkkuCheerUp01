@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -32,8 +33,7 @@ public class BookmarkActivity extends AppCompatActivity {
     int b=0;
     ListView listView34;
     ListView listView234;
-    SingerAdapter4 adapter34;
-    SingerAdapter4 adapter234;
+    static SingerAdapter4 adapter234;
     LinearLayout page4;
     ImageButton menuBtn;
     LinearLayout container4;
@@ -57,10 +57,46 @@ public class BookmarkActivity extends AppCompatActivity {
 
         page4=(LinearLayout) findViewById(R.id.page4);
         listView234=(ListView) findViewById(R.id.listView234);
-        listView34=(ListView) findViewById(R.id.listView34);
 
-        adapter34=new SingerAdapter4();
         adapter234=new SingerAdapter4();
+
+        for(int i=0;i<PastActivity.toBook2.size();i+=0){
+            boolean find=false;
+            SingerItem temp=PastActivity.toBook2.get(i);
+            try {
+                for (int j = 0; j < adapter234.items.size(); j++) {
+                    if (temp.companyName.equals(adapter234.items.get(j).companyName)) {
+                        find = true;
+                        break;
+                    }
+                }
+                if (find == false) {
+                    adapter234.addItem(temp);
+                    PastActivity.toBook2.remove(i);
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+            }
+        }
+
+        for(int i=0;i<Main1_1Activity.toBook.size();i+=0){
+            boolean find=false;
+            SingerItem temp=Main1_1Activity.toBook.get(i);
+            try {
+                for (int j = 0; j < adapter234.items.size(); j++) {
+                    if (temp.companyName.equals(adapter234.items.get(j).companyName)) {
+                        find = true;
+                        break;
+                    }
+                }
+                if (find == false) {
+                    adapter234.addItem(temp);
+                    Main1_1Activity.toBook.remove(i);
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+            }
+        }
 
         listView234.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,29 +112,19 @@ public class BookmarkActivity extends AppCompatActivity {
             }
         });
 
-        listView34.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent =new Intent(getApplicationContext(),
-                        detail.class);
-                intent.putExtra("companyName",adapter34.items.get(position).companyName);
-                intent.putExtra("title",adapter34.items.get(position).title);
-                intent.putExtra("whichCam",adapter34.items.get(position).campusContent);
-                intent.putExtra("content",adapter34.items.get(position).content);
-
-                startActivity(intent);
-            }
-        });
-
-        listView34.setAdapter(adapter34);
         listView234.setAdapter(adapter234);
-
     }
 
     public void onmain1Clicked(View v){
         Intent intent=new Intent(getApplicationContext(),Main1_1Activity.class);
         startActivity(intent);
 
+    }
+
+
+    public void onPastClicked(View v){
+        Intent intent=new Intent(getApplicationContext(),PastActivity.class);
+        startActivity(intent);
     }
 
     public void onSearchButton(View v){
@@ -112,20 +138,6 @@ public class BookmarkActivity extends AppCompatActivity {
             con.setVisibility(View.VISIBLE);
         }
     }
-
-    public void onInsaButtonClicked(View v){
-        LinearLayout insa=(LinearLayout) findViewById(R.id.insaL4);
-        insa.setVisibility(View.VISIBLE);
-        LinearLayout zagwa=(LinearLayout) findViewById(R.id.zagwaL4);
-        zagwa.setVisibility(View.INVISIBLE);
-    }
-    public void onzagwaButtonClicked(View v){
-        LinearLayout insa=(LinearLayout) findViewById(R.id.insaL4);
-        insa.setVisibility(View.INVISIBLE);
-        LinearLayout zagwa=(LinearLayout) findViewById(R.id.zagwaL4);
-        zagwa.setVisibility(View.VISIBLE);
-    }
-
     public void onSearchInvi(View v){
         LinearLayout search=(LinearLayout) findViewById(R.id.container4);
         search.setVisibility(View.INVISIBLE);
@@ -232,6 +244,23 @@ public class BookmarkActivity extends AppCompatActivity {
             SingerItem item=items.get(position);
             view.setName(item.title);
             view.setDate(item.getDate());
+
+            CheckBox button1=(CheckBox) view.findViewById(R.id.zle);
+            button1.setTag(position);
+
+            button1.setOnClickListener(new Button.OnClickListener() {
+                public void onClick(View v) {
+                    try {
+                        int a=(Integer)v.getTag();
+                        Toast.makeText(getApplicationContext(),"즐겨찾기에서 제거되었습니다.",Toast.LENGTH_SHORT).show();
+                        adapter234.items.remove(a);
+                        adapter234.notifyDataSetChanged();
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+
             return view;
         }
     }

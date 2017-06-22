@@ -133,6 +133,11 @@ public class detail extends AppCompatActivity {
         }
     }
 
+    public void onFavoriteClicked(View v){
+        Intent intent=new Intent(getApplicationContext(),BookmarkActivity.class);
+        startActivity(intent);
+    }
+
     public void onSearchInvi(View v){
         LinearLayout search=(LinearLayout) findViewById(R.id.container2);
         search.setVisibility(View.INVISIBLE);
