@@ -15,6 +15,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -43,12 +44,16 @@ public class Main1_1Activity extends AppCompatActivity {
     private DatabaseReference InsaDatabase;
     private DatabaseReference ZagwaDatabase;
     private boolean allSelOn=false;
+    static ArrayList<SingerItem> curInsaItems=new ArrayList<SingerItem>();
+    static ArrayList<SingerItem> curZagwaItems=new ArrayList<SingerItem>();
+    static ArrayList<Integer> curInsaArr=new ArrayList<Integer>();
+    static ArrayList<Integer> curZagwaArr=new ArrayList<Integer>();
 
     int b=0;
     ListView listView;
     ListView listView2;
-    SingerAdapter adapter;
-    SingerAdapter adapter2;
+    static public SingerAdapter adapter;
+    static public SingerAdapter adapter2;
     LinearLayout page;
     ImageButton menuBtn;
     LinearLayout container;
@@ -73,14 +78,8 @@ public class Main1_1Activity extends AppCompatActivity {
         listView2=(ListView) findViewById(R.id.listView2);
         listView=(ListView) findViewById(R.id.listView);
 
-        adapter=new SingerAdapter();
-        adapter2=new SingerAdapter();
-
-        adapter.addItem(new SingerItem("101010","광환","몰라","ㄴㅁㅇㅁㅁㄴ","자과"));
-        adapter2.addItem(new SingerItem("101010","광환","몰라","ㅁㄴㅇㅁㄴㅇㅁㄴ","인사"));
-
-        listView.setAdapter(adapter);
-        listView2.setAdapter(adapter2);
+        adapter=new SingerAdapter(curZagwaItems);
+        adapter2=new SingerAdapter(curInsaItems);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         InsaDatabase =database.getReference().child("insa");
@@ -92,6 +91,8 @@ public class Main1_1Activity extends AppCompatActivity {
                 for(DataSnapshot child: dataSnapshot.getChildren()){
                         SingerItem insa=child.getValue(SingerItem.class);
                         adapter2.addItem(new SingerItem(insa.date,insa.companyName,insa.campusContent,insa.content,insa.title));
+                    curInsaArr.add(0);
+                    adapter2.notifyDataSetChanged();
                 }
             }
 
@@ -106,12 +107,13 @@ public class Main1_1Activity extends AppCompatActivity {
                 for(DataSnapshot child: dataSnapshot.getChildren()){
                     SingerItem zagwa=child.getValue(SingerItem.class);
                     adapter.addItem(new SingerItem(zagwa.date,zagwa.companyName,zagwa.campusContent,zagwa.content,zagwa.title));
+                    curZagwaArr.add(0);
+                    adapter.notifyDataSetChanged();
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         };
         ZagwaDatabase.addValueEventListener(velZagwa);
@@ -145,6 +147,13 @@ public class Main1_1Activity extends AppCompatActivity {
             }
         });
 
+        listView.setAdapter(adapter);
+        listView2.setAdapter(adapter2);
+    }
+
+    public void onFavoriteClicked(View v){
+        Intent intent=new Intent(getApplicationContext(),BookmarkActivity.class);
+        startActivity(intent);
     }
 
     public void onPastClicked(View v){
@@ -255,10 +264,6 @@ public class Main1_1Activity extends AppCompatActivity {
         }
     }
 
-    public void on123ButtonClicked(View v){
-        Intent intent = new Intent(Main1_1Activity.this,detail.class);
-        startActivity(intent);
-    }
     public void menuTab(View v){
         try {
             if (isPageOpenMenu) {
@@ -272,7 +277,10 @@ public class Main1_1Activity extends AppCompatActivity {
         }
     }
     class SingerAdapter extends BaseAdapter{
-        ArrayList<SingerItem> items=new ArrayList<SingerItem>();
+        ArrayList<SingerItem> items;
+        SingerAdapter(ArrayList<SingerItem> list){
+            items=list;
+        }
         @Override
         public int getCount(){
             return items.size();
@@ -289,12 +297,21 @@ public class Main1_1Activity extends AppCompatActivity {
             return position;
         }
 
+
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup){
             SingerItemView view=new SingerItemView(getApplicationContext());
             SingerItem item=items.get(position);
             view.setName(item.title);
             view.setDate(item.getDate());
+
+            CheckBox button1=(CheckBox) view.findViewById(R.id.zle);
+
+                button1.setOnClickListener(new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(),"눌렸다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             return view;
         }
     }
