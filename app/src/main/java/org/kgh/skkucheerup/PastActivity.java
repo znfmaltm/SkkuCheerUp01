@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -145,7 +146,6 @@ public class PastActivity extends AppCompatActivity {
     public void onmain1Clicked(View v){
         Intent intent=new Intent(getApplicationContext(),Main1_1Activity.class);
         startActivity(intent);
-
     }
 
     public void onFavoriteClicked(View v){
@@ -153,15 +153,26 @@ public class PastActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onSearchButton(View v){
-        if(b==0) {
+    public void onSearchButton(View v) {
+        if (b == 0) {
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflater.inflate(R.layout.search_sub, container3, true);
             b++;
-        }
-        else{
-            LinearLayout con=(LinearLayout) findViewById(R.id.container);
+        } else {
+            LinearLayout con = (LinearLayout) findViewById(R.id.container);
             con.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    public void onGoSearchClicked(View v){
+        try {
+            Intent intent = new Intent(getApplicationContext(), SearchResult.class);
+            EditText et = (EditText) findViewById(R.id.searchBar);
+            intent.putExtra("search", et.getText().toString());
+            startActivity(intent);
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
         }
     }
 

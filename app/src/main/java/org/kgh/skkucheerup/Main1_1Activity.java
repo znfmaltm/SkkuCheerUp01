@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -194,6 +195,17 @@ public class Main1_1Activity extends AppCompatActivity {
         else{
             LinearLayout con=(LinearLayout) findViewById(R.id.container);
             con.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void onGoSearchClicked(View v){
+        try {
+            Intent intent = new Intent(getApplicationContext(), SearchResult.class);
+            EditText et = (EditText) findViewById(R.id.searchBar);
+            intent.putExtra("search", et.getText().toString());
+            startActivity(intent);
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
         }
     }
 

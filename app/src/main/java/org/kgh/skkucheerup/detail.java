@@ -14,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -74,6 +75,17 @@ public class detail extends AppCompatActivity {
     public void onPastClicked(View v){
         Intent intent=new Intent(getApplicationContext(),PastActivity.class);
         startActivity(intent);
+    }
+
+    public void onGoSearchClicked(View v){
+        try {
+            Intent intent = new Intent(getApplicationContext(), SearchResult.class);
+            EditText et = (EditText) findViewById(R.id.searchBar);
+            intent.putExtra("search", et.getText().toString());
+            startActivity(intent);
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onAllSelClicked(View v){
