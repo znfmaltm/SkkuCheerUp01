@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.kgh.skkucheerup.Main1_1Activity">
+    tools:context="org.kgh.skkucheerup.BookmarkActivity">
 
     <LinearLayout
-        android:id="@+id/container"
+        android:id="@+id/container4"
         android:layout_width="match_parent"
         android:layout_height="476dp"
         android:elevation="12dp"
@@ -17,7 +17,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/page1"
+        android:id="@+id/page4"
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
@@ -30,6 +30,7 @@
             android:id="@+id/buttonMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onmain1Clicked"
             android:text="메인페이지" />
 
         <Button
@@ -43,7 +44,6 @@
             android:id="@+id/buttonFav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onFavoriteClicked"
             android:text="즐겨찾기 목록" />
 
         <Button
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="예정된 채용설명회"
+            android:text="즐겨찾기 목록"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -124,32 +124,19 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="0dp">
+            android:elevation="9dp">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible"
-                android:weightSum="1"
                 tools:context="org.kgh.skkucheerup.MainActivity">
 
                 <LinearLayout
-                    android:id="@+id/insaL"
+                    android:id="@+id/zagwaL4"
                     android:layout_width="match_parent"
-                    android:layout_height="390dp"
-                    android:orientation="vertical">
-
-                    <ListView
-                        android:id="@+id/listView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/zagwaL"
-                    android:layout_width="match_parent"
-                    android:layout_height="390dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="0dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginLeft="8dp"
@@ -164,15 +151,26 @@
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                     <ListView
-                        android:id="@+id/listView"
+                        android:id="@+id/listView34"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="390dp"
                         android:elevation="5dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/insaL4"
+                    android:layout_width="match_parent"
+                    android:layout_height="390dp"
+                    android:orientation="vertical">
+
+                    <ListView
+                        android:id="@+id/listView234"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </FrameLayout>
         </ScrollView>
 
     </LinearLayout>
-
 </FrameLayout>

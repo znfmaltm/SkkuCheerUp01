@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "166066111996",
+    "firebase_url": "https://cheerupskku.firebaseio.com",
+    "project_id": "cheerupskku",
+    "storage_bucket": "cheerupskku.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:166066111996:android:da4dc3a57aeb2d95",
+        "android_client_info": {
+          "package_name": "org.kgh.skkucheerup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "166066111996-rko3p69oquch5j11g4bagqk909sgis4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqEU7vLF8807hZycRYkz-0iVQFM8hu0xs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

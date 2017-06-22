@@ -1,7 +1,10 @@
 package org.kgh.skkucheerup;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -30,8 +34,10 @@ public class Settings extends AppCompatActivity {
     private Animation translateLeftAnim4;
     private Animation translateRightAnim4;
     private boolean allSelOn4=false;
-    static int id;
+    static int id=1;
     static boolean find=false;
+    static boolean checkOne=false;
+    static String str;
 
     Button check;
     EditText input;
@@ -40,7 +46,6 @@ public class Settings extends AppCompatActivity {
     ImageButton menuBtn;
     LinearLayout container4;
     private DatabaseReference nicknameDB;
-    ValueEventListener vel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +60,7 @@ public class Settings extends AppCompatActivity {
         translateLeftAnim4.setAnimationListener(animListener4);
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_settings);
 
         container4 = (LinearLayout) findViewById(R.id.container4);
@@ -66,22 +72,94 @@ public class Settings extends AppCompatActivity {
         input=(EditText) findViewById(R.id.nicknameInput);
 
     }
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        Toast.makeText(getApplicationContext(),"onPause 호출됨", Toast.LENGTH_LONG).show();
+        saveState();
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        Toast.makeText(this,"onResume 호출됨",Toast.LENGTH_LONG).show();
+        restoreState();
+    }
+
+    protected void restoreState(){
+        SharedPreferences pref=getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        if((pref!=null)&&(pref.contains("name")) ){
+            str=pref.getString("name","");
+
+            Button bbb = (Button) findViewById(R.id.check);
+            Button bbbb = (Button) findViewById(R.id.nickName);
+            TextView nick = (TextView) findViewById(R.id.nicknameSet);
+            nick.setText(str + "님 환영합니다.");
+            input.setVisibility(View.INVISIBLE);
+            bbb.setVisibility(View.INVISIBLE);
+            bbbb.setVisibility(View.INVISIBLE);
+            nick.setVisibility(View.VISIBLE);
+        }
+    }
+    protected void saveState(){
+        SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.putString("name",str);
+        editor.commit();
+    }
+
+    public void onNicknameSettingClicked(View v){
+        if(find==false && checkOne==true) {
+            str = input.getText().toString();
+            writeNewUser(String.valueOf(id), str);
+            EditText inputText = (EditText) findViewById(R.id.nicknameInput);
+            Button bbb = (Button) findViewById(R.id.check);
+            Button bbbb = (Button) findViewById(R.id.nickName);
+            TextView nick = (TextView) findViewById(R.id.nicknameSet);
+            nick.setText(str + "님 환영합니다.");
+            inputText.setVisibility(View.INVISIBLE);
+            bbb.setVisibility(View.INVISIBLE);
+            bbbb.setVisibility(View.INVISIBLE);
+            nick.setVisibility(View.VISIBLE);
+            id=1;
+            checkOne=false;
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"중복검사를 해주십시오.",Toast.LENGTH_SHORT).show();
+            find=false;
+        }
+    }
+
+    protected void clearMyPrefs(){
+        SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.clear();
+        editor.commit();
+    }
+
+    public void onResetClicked(View v){
+        clearMyPrefs();
+    }
 
     public void onCheckClicked(View v){
         nicknameDB.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String str=input.getText().toString();
+                str=input.getText().toString();
                 check=(Button) findViewById(R.id.check);
                 for(DataSnapshot child : dataSnapshot.getChildren()){
+                    id++;
                     if(child.getValue().equals(str)){
                         find=true;
                         Toast.makeText(getApplicationContext(),"이미 있는 닉네임 입니다.",Toast.LENGTH_SHORT).show();
+                        checkOne=false;
                         break;
                     }
                 }
                 if(find==false){
                     Toast.makeText(getApplicationContext(),"사용 가능한 닉네임 입니다.",Toast.LENGTH_SHORT).show();
+                    checkOne=true;
                 }
             }
 

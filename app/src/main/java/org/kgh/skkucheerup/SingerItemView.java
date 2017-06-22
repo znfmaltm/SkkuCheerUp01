@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import org.w3c.dom.Text;
 
 
 public class SingerItemView extends LinearLayout {
-    ImageButton button1;
+    CheckBox button1;
     TextView textView2;
     TextView textView1;
 
@@ -32,7 +33,7 @@ public class SingerItemView extends LinearLayout {
         inflater.inflate(R.layout.singer_item,this,true);
 
         textView1=(TextView) findViewById(R.id.titleText);
-        button1=(ImageButton) findViewById(R.id.zle);
+        button1=(CheckBox) findViewById(R.id.zle);
         textView2=(TextView) findViewById(R.id.dateText);
 
     }

@@ -2,6 +2,7 @@ package org.kgh.skkucheerup;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,7 @@ import java.util.Map;
  * Created by KGH123 on 2017-06-12.
  */
 @IgnoreExtraProperties
-public class SingerItem {
+public class SingerItem implements Serializable{
     String date;
     String companyName;
     String campusContent;

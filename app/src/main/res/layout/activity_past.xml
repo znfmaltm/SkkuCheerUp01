@@ -49,6 +49,7 @@
             android:id="@+id/buttonMy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="onSettingClicked"
             android:text="마이페이지" />
     </LinearLayout>
 
@@ -62,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:gravity="center_vertical|center_horizontal"
-            android:text="예정된 채용설명회"
+            android:text="지난 채용공고"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="parent"

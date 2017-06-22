@@ -77,9 +77,12 @@ public class Main1_1Activity extends AppCompatActivity {
         page=(LinearLayout) findViewById(R.id.page1);
         listView2=(ListView) findViewById(R.id.listView2);
         listView=(ListView) findViewById(R.id.listView);
-
-        adapter=new SingerAdapter(curZagwaItems);
-        adapter2=new SingerAdapter(curInsaItems);
+        try {
+            adapter = new SingerAdapter(curZagwaItems,1);
+            adapter2 = new SingerAdapter(curInsaItems,0);
+        }catch(Exception e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         InsaDatabase =database.getReference().child("insa");
@@ -278,8 +281,11 @@ public class Main1_1Activity extends AppCompatActivity {
     }
     class SingerAdapter extends BaseAdapter{
         ArrayList<SingerItem> items;
-        SingerAdapter(ArrayList<SingerItem> list){
+        int campus;
+
+        SingerAdapter(ArrayList<SingerItem> list, int cam){
             items=list;
+            campus=cam;
         }
         @Override
         public int getCount(){
@@ -300,20 +306,24 @@ public class Main1_1Activity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup viewGroup){
-            SingerItemView view=new SingerItemView(getApplicationContext());
-            SingerItem item=items.get(position);
+            SingerItemView view = new SingerItemView(getApplicationContext());
+            SingerItem item = items.get(position);
             view.setName(item.title);
             view.setDate(item.getDate());
+            CheckBox button1 = (CheckBox) view.findViewById(R.id.zle);
 
-            CheckBox button1=(CheckBox) view.findViewById(R.id.zle);
 
-                button1.setOnClickListener(new Button.OnClickListener() {
+            button1.setTag(position + "");
+
+            button1.setOnClickListener(new Button.OnClickListener() {
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(),"눌렸다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),(String)v.getTag(), Toast.LENGTH_SHORT).show();
                     }
                 });
+
             return view;
         }
+
     }
     @Override
         public boolean onCreateOptionsMenu(Menu menu){
