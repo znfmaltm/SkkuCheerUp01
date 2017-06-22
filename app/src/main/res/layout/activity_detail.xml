@@ -1,132 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
+    android:layout_marginLeft="0dp"
     android:orientation="vertical"
-    tools:context="org.kgh.skkucheerup.detail"
-    android:weightSum="1">
+    android:weightSum="1"
+    tools:context="org.kgh.skkucheerup.detail">
+
+    <LinearLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="476dp"
+        android:elevation="12dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/page2"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="#cc000000"
+        android:elevation="12dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/buttonMain2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onmain1Clicked"
+            android:text="메인페이지" />
+
+        <Button
+            android:id="@+id/buttonPast2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onPastClicked"
+            android:text="지난 채용공고" />
+
+        <Button
+            android:id="@+id/buttonFav2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="즐겨찾기 목록" />
+
+        <Button
+            android:id="@+id/buttonMy2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onSettingClicked"
+            android:text="마이페이지" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="vertical"
-            android:weightSum="1"
-            tools:context="org.kgh.skkucheerup.detail">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:text="회사명"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView8"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="롯데"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginLeft="0dp"
+                android:orientation="vertical"
+                android:weightSum="1"
+                tools:context="org.kgh.skkucheerup.detail">
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="200dp"
-                android:layout_height="2dip"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.00"
-                android:background="#ff000000" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:text="회사명"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="88dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:text="제목"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/companyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="롯데"
+                    android:textAllCaps="false"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="17년 상반기 롯데닷컴 신입, 인턴, 채용설명회"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="200dp"
+                    android:layout_height="2dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="0.00"
+                    android:background="#ff000000" />
 
-            <View
-                android:id="@+id/view6"
-                android:layout_width="362dp"
-                android:layout_height="2dip"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
-                android:background="#ff000000" />
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="88dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:text="제목"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:text="캠퍼스"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="17년 상반기 롯데닷컴 신입, 인턴, 채용설명회"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="인사캠 : 2017년 ~"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="362dp"
+                    android:layout_height="2dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dp"
+                    android:background="#ff000000" />
 
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="자과캠 : -"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:text="캠퍼스"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
-            <View
-                android:id="@+id/view5"
-                android:layout_width="362dp"
-                android:layout_height="2dip"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
-                android:background="#ff000000" />
+                <TextView
+                    android:id="@+id/whichCampus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="인사캠 : 2017년 ~"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="144dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@android:drawable/editbox_background_normal"
-                android:text="상세정보"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="362dp"
+                    android:layout_height="2dip"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="5dp"
+                    android:background="#ff000000" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="144dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:text="상세정보"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="사전신청 링크 : ~"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="?android:attr/colorControlHighlight"
+                    android:text="댓글"
+                    android:textSize="22sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:text="새로운 댓글을 남겨보세요!" />
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="확인" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>
