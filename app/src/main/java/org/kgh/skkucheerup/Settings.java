@@ -76,14 +76,12 @@ public class Settings extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
 
-        Toast.makeText(getApplicationContext(),"onPause 호출됨", Toast.LENGTH_LONG).show();
         saveState();
     }
     @Override
     protected void onResume(){
         super.onResume();
 
-        Toast.makeText(this,"onResume 호출됨",Toast.LENGTH_LONG).show();
         restoreState();
     }
 
@@ -102,6 +100,12 @@ public class Settings extends AppCompatActivity {
             nick.setVisibility(View.VISIBLE);
         }
     }
+
+    public void onFavoriteClicked(View v){
+        Intent intent=new Intent(getApplicationContext(),BookmarkActivity.class);
+        startActivity(intent);
+    }
+
     protected void saveState(){
         SharedPreferences pref=getSharedPreferences("pref",Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor=pref.edit();
