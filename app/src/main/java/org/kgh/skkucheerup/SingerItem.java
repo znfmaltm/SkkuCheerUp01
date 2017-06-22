@@ -1,9 +1,14 @@
 package org.kgh.skkucheerup;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by KGH123 on 2017-06-12.
  */
-
+@IgnoreExtraProperties
 public class SingerItem {
     String date;
     String companyName;
@@ -12,15 +17,27 @@ public class SingerItem {
     String title;
     int campus;
     int count;
-    public SingerItem(String date,String name2, String c, String d, String e, int f, int g){
+    public SingerItem(String date,String name2, String camCon, String cont, String title){
         this.date=date;
         this.companyName=name2;
-        campusContent=c;
-        content=d;
-        title=e;
-        campus=f;
-        count=g;
+        campusContent=camCon;
+        content=cont;
+        this.title=title;
     }
+    public SingerItem(){
+
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap<String,Object> result =new HashMap<>();
+        result.put("date",date);
+        result.put("companyName",companyName);
+        result.put("campusContent",campusContent);
+        result.put("content",content);
+        result.put("title",title);
+        return result;
+    }
+
     public void setDate(String date){
         this.date=date;
     }

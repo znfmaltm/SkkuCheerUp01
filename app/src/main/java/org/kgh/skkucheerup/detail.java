@@ -138,8 +138,12 @@ public class detail extends AppCompatActivity {
         search.setVisibility(View.INVISIBLE);
     }
 
+    public void onSettingClicked(View v){
+        Intent intent=new Intent(getApplicationContext(),Settings.class);
+        startActivity(intent);
+    }
+
     public void onmain1Clicked(View v){
-        Toast.makeText(getApplicationContext().getApplicationContext(),str,Toast.LENGTH_LONG).show();
         Intent intent=new Intent(detail.this,Main1_1Activity.class);
         startActivity(intent);
 

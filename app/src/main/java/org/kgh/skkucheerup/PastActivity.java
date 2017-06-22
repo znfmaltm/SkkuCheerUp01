@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -19,10 +18,8 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,67 +28,64 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static org.kgh.skkucheerup.R.layout.activity_past;
-import static org.kgh.skkucheerup.R.layout.activity_settings;
-import static org.kgh.skkucheerup.R.layout.singer_item;
-
-public class Main1_1Activity extends AppCompatActivity {
-    boolean isPageOpenMenu=false;
-    private Animation translateLeftAnim;
-    private Animation translateRightAnim;
-    private static final String TAG= "Main1_1Activity";
-    private DatabaseReference InsaDatabase;
-    private DatabaseReference ZagwaDatabase;
-    private boolean allSelOn=false;
+public class PastActivity extends AppCompatActivity {
+    boolean isPageOpenMenu3=false;
+    private Animation translateLeftAnim3;
+    private Animation translateRightAnim3;
+    private static final String TAG= "PastActivity";
+    private DatabaseReference InsaDatabase3;
+    private DatabaseReference ZagwaDatabase3;
+    private boolean allSelOn3=false;
 
     int b=0;
-    ListView listView;
-    ListView listView2;
-    SingerAdapter adapter;
-    SingerAdapter adapter2;
-    LinearLayout page;
+    ListView listView3;
+    ListView listView23;
+    SingerAdapter3 adapter3;
+    SingerAdapter3 adapter23;
+    LinearLayout page3;
     ImageButton menuBtn;
-    LinearLayout container;
+    LinearLayout container3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        page=(LinearLayout) findViewById(R.id.page1);
+        page3=(LinearLayout) findViewById(R.id.page3);
         menuBtn=(ImageButton)findViewById(R.id.menuBtn);
 
-        translateLeftAnim = AnimationUtils.loadAnimation(this, R.anim.translate_left);
-        translateRightAnim = AnimationUtils.loadAnimation(this, R.anim.translate_right);
+        translateLeftAnim3 = AnimationUtils.loadAnimation(this, R.anim.translate_left);
+        translateRightAnim3= AnimationUtils.loadAnimation(this, R.anim.translate_right);
 
-        SlidingPageAnimationListener animListener = new SlidingPageAnimationListener(this);
-        translateRightAnim.setAnimationListener(animListener);
-        translateLeftAnim.setAnimationListener(animListener);
+        SlidingPageAnimationListener3 animListener3 = new SlidingPageAnimationListener3();
+        translateRightAnim3.setAnimationListener(animListener3);
+        translateLeftAnim3.setAnimationListener(animListener3);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main1_1);
+        setContentView(R.layout.activity_past);
 
-        container =(LinearLayout) findViewById(R.id.container);
+        container3 =(LinearLayout) findViewById(R.id.container3);
 
-        page=(LinearLayout) findViewById(R.id.page1);
-        listView2=(ListView) findViewById(R.id.listView2);
-        listView=(ListView) findViewById(R.id.listView);
+        page3=(LinearLayout) findViewById(R.id.page3);
+        listView23=(ListView) findViewById(R.id.listView23);
+        listView3=(ListView) findViewById(R.id.listView3);
 
-        adapter=new SingerAdapter();
-        adapter2=new SingerAdapter();
+        adapter3=new SingerAdapter3();
+        adapter23=new SingerAdapter3();
 
-        adapter.addItem(new SingerItem("101010","광환","몰라","ㄴㅁㅇㅁㅁㄴ","자과"));
-        adapter2.addItem(new SingerItem("101010","광환","몰라","ㅁㄴㅇㅁㄴㅇㅁㄴ","인사"));
+        adapter3.addItem(new SingerItem("101010","광환","몰라","ㄴㅁㅇㅁㅁㄴ","자과"));
+        adapter23.addItem(new SingerItem("101010","광환","몰라","ㅁㄴㅇㅁㄴㅇㅁㄴ","인사"));
 
-        listView.setAdapter(adapter);
-        listView2.setAdapter(adapter2);
+        listView3.setAdapter(adapter3);
+        listView23.setAdapter(adapter23);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        InsaDatabase =database.getReference().child("insa");
-        ZagwaDatabase = database.getReference().child("zagwa");
+        FirebaseDatabase database3 = FirebaseDatabase.getInstance();
+        InsaDatabase3 =database3.getReference().child("past").child("insa");
+        ZagwaDatabase3 = database3.getReference().child("past").child("zagwa");
 
-        ValueEventListener vel=new ValueEventListener() {
+        ValueEventListener vel3=new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child: dataSnapshot.getChildren()){
-                        SingerItem insa=child.getValue(SingerItem.class);
-                        adapter2.addItem(new SingerItem(insa.date,insa.companyName,insa.campusContent,insa.content,insa.title));
+                    SingerItem insa=child.getValue(SingerItem.class);
+                    adapter23.addItem(new SingerItem(insa.date,insa.companyName,insa.campusContent,insa.content,insa.title));
                 }
             }
 
@@ -100,12 +94,12 @@ public class Main1_1Activity extends AppCompatActivity {
 
             }
         };
-        ValueEventListener velZagwa=new ValueEventListener() {
+        ValueEventListener velZagwa3=new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot child: dataSnapshot.getChildren()){
                     SingerItem zagwa=child.getValue(SingerItem.class);
-                    adapter.addItem(new SingerItem(zagwa.date,zagwa.companyName,zagwa.campusContent,zagwa.content,zagwa.title));
+                    adapter3.addItem(new SingerItem(zagwa.date,zagwa.companyName,zagwa.campusContent,zagwa.content,zagwa.title));
                 }
             }
 
@@ -114,32 +108,32 @@ public class Main1_1Activity extends AppCompatActivity {
 
             }
         };
-        ZagwaDatabase.addValueEventListener(velZagwa);
-        InsaDatabase.addValueEventListener(vel);
+        ZagwaDatabase3.addValueEventListener(velZagwa3);
+        InsaDatabase3.addValueEventListener(vel3);
 
-        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView23.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent =new Intent(getApplicationContext(),
                         detail.class);
-                intent.putExtra("companyName",adapter2.items.get(position).companyName);
-                intent.putExtra("title",adapter2.items.get(position).title);
-                intent.putExtra("whichCam",adapter2.items.get(position).campusContent);
-                intent.putExtra("content",adapter2.items.get(position).content);
+                intent.putExtra("companyName",adapter23.items.get(position).companyName);
+                intent.putExtra("title",adapter23.items.get(position).title);
+                intent.putExtra("whichCam",adapter23.items.get(position).campusContent);
+                intent.putExtra("content",adapter23.items.get(position).content);
 
                 startActivity(intent);
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent =new Intent(getApplicationContext(),
                         detail.class);
-                intent.putExtra("companyName",adapter.items.get(position).companyName);
-                intent.putExtra("title",adapter.items.get(position).title);
-                intent.putExtra("whichCam",adapter.items.get(position).campusContent);
-                intent.putExtra("content",adapter.items.get(position).content);
+                intent.putExtra("companyName",adapter3.items.get(position).companyName);
+                intent.putExtra("title",adapter3.items.get(position).title);
+                intent.putExtra("whichCam",adapter3.items.get(position).campusContent);
+                intent.putExtra("content",adapter3.items.get(position).content);
 
                 startActivity(intent);
             }
@@ -147,20 +141,16 @@ public class Main1_1Activity extends AppCompatActivity {
 
     }
 
-    public void onPastClicked(View v){
-        Intent intent=new Intent(getApplicationContext(),PastActivity.class);
+    public void onmain1Clicked(View v){
+        Intent intent=new Intent(getApplicationContext(),Main1_1Activity.class);
         startActivity(intent);
-    }
 
-    public void onSettingClicked(View v){
-        Intent intent=new Intent(getApplicationContext(),Settings.class);
-        startActivity(intent);
     }
 
     public void onSearchButton(View v){
         if(b==0) {
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.search_sub, container, true);
+            inflater.inflate(R.layout.search_sub, container3, true);
             b++;
         }
         else{
@@ -170,36 +160,29 @@ public class Main1_1Activity extends AppCompatActivity {
     }
 
     public void onInsaButtonClicked(View v){
-        LinearLayout insa=(LinearLayout) findViewById(R.id.insaL);
+        LinearLayout insa=(LinearLayout) findViewById(R.id.insaL3);
         insa.setVisibility(View.VISIBLE);
-        LinearLayout zagwa=(LinearLayout) findViewById(R.id.zagwaL);
+        LinearLayout zagwa=(LinearLayout) findViewById(R.id.zagwaL3);
         zagwa.setVisibility(View.INVISIBLE);
     }
     public void onzagwaButtonClicked(View v){
-        LinearLayout insa=(LinearLayout) findViewById(R.id.insaL);
+        LinearLayout insa=(LinearLayout) findViewById(R.id.insaL3);
         insa.setVisibility(View.INVISIBLE);
-        LinearLayout zagwa=(LinearLayout) findViewById(R.id.zagwaL);
+        LinearLayout zagwa=(LinearLayout) findViewById(R.id.zagwaL3);
         zagwa.setVisibility(View.VISIBLE);
     }
 
     public void onSearchInvi(View v){
-        LinearLayout search=(LinearLayout) findViewById(R.id.container);
+        LinearLayout search=(LinearLayout) findViewById(R.id.container3);
         search.setVisibility(View.INVISIBLE);
     }
-    class SlidingPageAnimationListener implements Animation.AnimationListener {
-
-        private Main1_1Activity main1_1Activity;
-
-        public SlidingPageAnimationListener(Main1_1Activity main1_1Activity) {
-            this.main1_1Activity = main1_1Activity;
-        }
-
+    class SlidingPageAnimationListener3 implements Animation.AnimationListener {
         public void onAnimationEnd(Animation animation) {
-            if (main1_1Activity.isPageOpenMenu) {
-                main1_1Activity.page.setVisibility(View.INVISIBLE);
-                main1_1Activity.isPageOpenMenu = false;
+            if (isPageOpenMenu3) {
+                page3.setVisibility(View.INVISIBLE);
+                isPageOpenMenu3 = false;
             } else {
-                main1_1Activity.isPageOpenMenu = true;
+                isPageOpenMenu3 = true;
             }
         }
 
@@ -224,7 +207,7 @@ public class Main1_1Activity extends AppCompatActivity {
         CheckBox b11= (CheckBox) findViewById(R.id.fore);
         CheckBox b12= (CheckBox) findViewById(R.id.anso);
 
-        if (allSelOn == false) {
+        if (allSelOn3 == false) {
             b1.setChecked(true);
             b2.setChecked(true);
             b3.setChecked(true);
@@ -237,7 +220,7 @@ public class Main1_1Activity extends AppCompatActivity {
             b10.setChecked(true);
             b11.setChecked(true);
             b12.setChecked(true);
-            allSelOn=true;
+            allSelOn3=true;
         }else{
             b1.setChecked(false);
             b2.setChecked(false);
@@ -251,27 +234,27 @@ public class Main1_1Activity extends AppCompatActivity {
             b10.setChecked(false);
             b11.setChecked(false);
             b12.setChecked(false);
-            allSelOn=false;
+            allSelOn3=false;
         }
     }
 
     public void on123ButtonClicked(View v){
-        Intent intent = new Intent(Main1_1Activity.this,detail.class);
+        Intent intent = new Intent(getApplicationContext(),detail.class);
         startActivity(intent);
     }
     public void menuTab(View v){
         try {
-            if (isPageOpenMenu) {
-                page.startAnimation(translateLeftAnim);
+            if (isPageOpenMenu3) {
+                page3.startAnimation(translateLeftAnim3);
             } else {
-                page.setVisibility(View.VISIBLE);
-                page.startAnimation(translateRightAnim);
+                page3.setVisibility(View.VISIBLE);
+                page3.startAnimation(translateRightAnim3);
             }
-            } catch (Exception e) {
-            Toast.makeText(Main1_1Activity.this, e.toString(), Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
         }
     }
-    class SingerAdapter extends BaseAdapter{
+    class SingerAdapter3 extends BaseAdapter {
         ArrayList<SingerItem> items=new ArrayList<SingerItem>();
         @Override
         public int getCount(){
@@ -298,21 +281,27 @@ public class Main1_1Activity extends AppCompatActivity {
             return view;
         }
     }
-    @Override
-        public boolean onCreateOptionsMenu(Menu menu){
-            ActionBar actionBar=getSupportActionBar();
-            actionBar.setDisplayShowCustomEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayShowHomeEnabled(false);
 
-            LayoutInflater inflater =(LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            View actionbar = inflater.inflate(R.layout.custom_action,null);
-
-            actionBar.setCustomView(actionbar);
-            Toolbar parent = (Toolbar)actionbar.getParent();
-            parent.setContentInsetsAbsolute(0,0);
-
-            return true;
-        }
+    public void onSettingClicked(View v){
+        Intent intent=new Intent(getApplicationContext(),Settings.class);
+        startActivity(intent);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        ActionBar actionBar=getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+
+        LayoutInflater inflater =(LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View actionbar = inflater.inflate(R.layout.custom_action,null);
+
+        actionBar.setCustomView(actionbar);
+        Toolbar parent = (Toolbar)actionbar.getParent();
+        parent.setContentInsetsAbsolute(0,0);
+
+        return true;
+    }
+}
