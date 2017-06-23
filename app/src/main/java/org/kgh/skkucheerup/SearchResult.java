@@ -195,7 +195,7 @@ public class SearchResult extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_SHORT).show();
         }
     }
-    
+
     public void onInsaButtonClicked(View v){
         LinearLayout insa=(LinearLayout) findViewById(R.id.insaL5);
         insa.setVisibility(View.VISIBLE);

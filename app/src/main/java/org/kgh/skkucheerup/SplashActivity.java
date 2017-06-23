@@ -11,19 +11,27 @@ import com.google.firebase.database.DatabaseReference;
  */
 
 public class SplashActivity extends Activity {
-
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-
+/*
         try{
             Thread.sleep(4000);
         }
         catch(InterruptedException e){
             e.printStackTrace();
         }
-        startActivity(new Intent(this,Main1_1Activity.class));
+        ....load({...
+           Intent i = new Intent(this,Main1_1Activity.class);
+            i.putStringArrayListExtra("a", list);
+            startActivity();
+            finish();
+            });
+        */
+        Intent i = new Intent(this,Main1_1Activity.class);
+        //i.putStringArrayListExtra("a", list);
+        startActivity(i);
         finish();
     }
 }
